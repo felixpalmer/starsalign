@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import * as THREE from 'three/webgpu';
 
 // Scene setup
 const scene = new THREE.Scene();
@@ -14,7 +14,7 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.z = 5;
 
 // Renderer
-const renderer = new THREE.WebGLRenderer({antialias: true});
+const renderer = new THREE.WebGPURenderer({antialias: true});
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 document.body.appendChild(renderer.domElement);
@@ -48,7 +48,10 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-animate();
+// Initialize WebGPU renderer before starting animation
+renderer.init().then(() => {
+  animate();
+});
 
 // Handle window resize
 window.addEventListener('resize', () => {
