@@ -3,12 +3,11 @@ import * as THREE from 'three/webgpu';
 // Load fabric textures
 const textureLoader = new THREE.TextureLoader();
 const fabricNormal = textureLoader.load('/fabric_199-1K/fabric_199_Normal-1K.jpg');
-const fabricRoughness = textureLoader.load('/fabric_199-1K/fabric_199_Roughness-1K.png');
 const fabricAO = textureLoader.load('/fabric_199-1K/fabric_199_AmbientOcclusion-1K.jpg');
 const fabricHeight = textureLoader.load('/fabric_199-1K/fabric_199_Height-1K.jpg');
 
 // Set fabric texture wrapping and repeat
-[fabricNormal, fabricRoughness, fabricAO, fabricHeight].forEach(texture => {
+[fabricNormal, fabricAO, fabricHeight].forEach(texture => {
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
   texture.repeat.set(1.5, 1);
