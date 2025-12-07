@@ -49,7 +49,10 @@ export function updateBackendInfo(renderer) {
 
   if (!backendCounter || !debugInfo) return;
 
-  const backend = renderer.backend.constructor.name.replace('Backend', '');
+  // Detect backend type by checking for WebGPU-specific properties
+  const backend = renderer.backend?.isWebGPUBackend ? 'WebGPU' : 'WebGL';
+  const rendererType = renderer.isWebGPURenderer ? 'WebGPURenderer' : 'WebGLRenderer';
+
   backendCounter.textContent = `Backend: ${backend}`;
-  debugInfo.textContent = `Backend: ${backend}\nRenderer: ${renderer.constructor.name}`;
+  debugInfo.textContent = `Backend: ${backend}\nRenderer: ${rendererType}`;
 }
