@@ -19,6 +19,7 @@ export function updateFPS(now) {
   if (!isDebugMode) return;
 
   const fpsCounter = document.getElementById('fps-counter');
+  if (!fpsCounter) return;
 
   // Update FPS counter every 500ms
   fpsFrames++;
@@ -34,15 +35,21 @@ export function updateTimeCounter(now) {
   if (!isDebugMode) return;
 
   const timeCounter = document.getElementById('time-counter');
+  if (!timeCounter) return;
+
   const elapsedSeconds = Math.floor((now - startTime) / 1000);
   timeCounter.textContent = `Time: ${elapsedSeconds}s`;
 }
 
 export function updateBackendInfo(renderer) {
+  if (!isDebugMode) return;
+
   const backendCounter = document.getElementById('backend-counter');
+  const debugInfo = document.getElementById('debug-info');
+
+  if (!backendCounter || !debugInfo) return;
+
   const backend = renderer.backend.constructor.name.replace('Backend', '');
   backendCounter.textContent = `Backend: ${backend}`;
-
-  const debugInfo = document.getElementById('debug-info');
   debugInfo.textContent = `Backend: ${backend}\nRenderer: ${renderer.constructor.name}`;
 }

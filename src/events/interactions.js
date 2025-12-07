@@ -4,10 +4,9 @@ import {store} from '../store.js';
 export function setupClickHandler(camera, starGroup, flagBackground, controlSphere) {
   document.addEventListener('click', (e) => {
     const state = store.getState();
-    const controlsEl = document.getElementById('controls');
 
-    // Don't toggle if clicking on controls or if user was dragging
-    if (controlsEl.contains(e.target) || state.hasDragged) {
+    // Don't toggle if user was dragging
+    if (state.hasDragged) {
       store.getState().setHasDragged(false);
       return;
     }
@@ -66,9 +65,6 @@ export function setupClickHandler(camera, starGroup, flagBackground, controlSphe
 
 export function setupRotationHandlers(renderer) {
   const handleMouseDown = (e) => {
-    const controlsEl = document.getElementById('controls');
-    if (controlsEl.contains(e.target)) return;
-
     store.getState().setIsDragging(true);
     store.getState().setHasDragged(false);
     store.getState().setPreviousMouse(e.clientX, e.clientY);
@@ -113,9 +109,6 @@ export function setupRotationHandlers(renderer) {
 
   // Touch events
   const handleTouchStart = (e) => {
-    const controlsEl = document.getElementById('controls');
-    if (controlsEl.contains(e.target)) return;
-
     store.getState().setIsDragging(true);
     store.getState().setHasDragged(false);
     store.getState().setPreviousMouse(e.touches[0].clientX, e.touches[0].clientY);
